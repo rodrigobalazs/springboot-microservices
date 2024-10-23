@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.rbalazs</groupId>
+	<artifactId>store-app</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Store Application</name>
+	<description>Store Application with 3 child apps/microservices Orders,Inventory,Notifications</description>
+	<packaging>pom</packaging>
+	<developers>
+		<developer>
+			<name>Rodrigo Balazs</name>
+		</developer>
+	</developers>
+
+	<!-- properties inherited by all microservices -->
+	<properties>
+		<java.version>17</java.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<spring-boot.version>3.3.4</spring-boot.version>
+	</properties>
+
+	<!-- defines each microservice -->
+	<modules>
+        <module>orders-microservice</module>
+        <module>inventory-microservice</module>
+        <module>notifications-microservice</module>
+    </modules>
+
+	<!-- libraries dependencies inherited by all microservices -->
+	<dependencyManagement>
+        <dependencies>
+
+			<!-- Spring Boot dependencies -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring-boot.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+	<!-- plugins -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
