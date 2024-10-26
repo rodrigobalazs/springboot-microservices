@@ -16,14 +16,17 @@
 	</developers>
 
 	<properties>
+		<apache-commons-collections.version>4.4</apache-commons-collections.version>
+		<apache-commons-lang.version>3.17.0</apache-commons-lang.version>
 		<java.version>17</java.version>
+		<lombok.version>1.18.34</lombok.version>
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<spring-boot.version>3.3.4</spring-boot.version>
 	</properties>
 
 	<modules>
         <module>orders-microservice</module>
-        <module>inventory-microservice</module>
+        <module>stock-microservice</module>
         <module>notifications-microservice</module>
     </modules>
 
@@ -42,6 +45,26 @@
 				<artifactId>spring-boot-starter-test</artifactId>
 				<version>${spring-boot.version}</version>
 				<scope>test</scope>
+			</dependency>
+
+			<!-- Apache Commons -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${apache-commons-lang.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${apache-commons-collections.version}</version>
+			</dependency>
+
+			<!-- Lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
 			</dependency>
 
         </dependencies>

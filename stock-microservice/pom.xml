@@ -2,10 +2,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.rbalazs.inventory</groupId>
-    <artifactId>inventory-microservice</artifactId>
-    <name>Inventory Microservice</name>
-    <description>App which represents an Inventory Microservice</description>
+    <groupId>com.rbalazs.stock</groupId>
+    <artifactId>stock-microservice</artifactId>
+    <name>Stock Microservice</name>
+    <description>App which represents the Stock Microservice</description>
     <version>0.0.1-SNAPSHOT</version>
     <parent>
         <groupId>com.rbalazs</groupId>
@@ -24,6 +24,23 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <!-- Apache Commons -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
     </dependencies>

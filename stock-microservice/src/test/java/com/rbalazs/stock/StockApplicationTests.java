@@ -1,10 +1,10 @@
-package com.rbalazs.inventory;
+package com.rbalazs.stock;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class InventoryApplicationTests {
+class StockApplicationTests {
 
 	@Test
 	void contextLoads() {
