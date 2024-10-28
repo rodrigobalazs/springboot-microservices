@@ -1,8 +1,7 @@
 package com.rbalazs.orders.controller;
 
-import com.rbalazs.orders.model.Order;
+import com.rbalazs.orders.dto.QuoteDTO;
 import com.rbalazs.orders.service.OrderService;
-import org.apache.catalina.servlets.DefaultServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * @author Rodrigo Balazs
  */
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
@@ -26,10 +25,10 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> createOrder(@RequestBody Order order) {
-        LOGGER.info("starts to execute orderController.createOrder()");
-        orderService.createOrder(order);
+    @PostMapping("/place-order")
+    public ResponseEntity<String> placeOrder(@RequestBody QuoteDTO quoteDTO) {
+        LOGGER.info("starts to execute orderController.placeOrder()");
+        orderService.placeOrder(quoteDTO);
         return ResponseEntity.ok("a new Order has been successfully created");
     }
 }
