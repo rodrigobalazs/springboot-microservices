@@ -26,8 +26,9 @@ public class StockController {
         this.stockService = stockService;
     }
 
-    @GetMapping("/isInStock")
-    public boolean isInStock(@RequestParam String productName, @RequestParam int requestedQuantity) {
+    @GetMapping("/is-in-stock")
+    public boolean isInStock(@RequestParam(value = "productName") String productName,
+                             @RequestParam(value = "requestedQuantity") int requestedQuantity) {
         LOGGER.info("starts to execute stockController.isInStock() with product name:{}", productName);
         return stockService.isInStock(productName, requestedQuantity);
     }
