@@ -8,9 +8,10 @@ import org.springframework.http.HttpStatus;
  * @author Rodrigo Balazs
  */
 public enum OrderAppValidations {
-    ENTITY_NOT_FOUND(HttpStatus.BAD_REQUEST, "the entity was not found in the Orders application"),
-    CUSTOMER_NOT_FOUND(HttpStatus.BAD_REQUEST, "the customer was not found in the Orders application"),
-    EMPTY_ORDER_ITEMS(HttpStatus.BAD_REQUEST, "the list of order´s items is empty");
+    PRODUCT_NOT_FOUND(HttpStatus.BAD_REQUEST, "the Product was not found in the Application"),
+    CUSTOMER_NOT_FOUND(HttpStatus.BAD_REQUEST, "the Customer was not found in the Application"),
+    EMPTY_ORDER_ITEMS(HttpStatus.BAD_REQUEST, "the list of Order´s Items is empty"),
+    OUT_OF_STOCK_PRODUCTS(HttpStatus.BAD_REQUEST, "the Order was not placed because some Products are out of stock");
 
     private final HttpStatus httpStatus;
     private final String message;

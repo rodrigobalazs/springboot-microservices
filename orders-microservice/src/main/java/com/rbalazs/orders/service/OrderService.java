@@ -4,10 +4,12 @@ import com.rbalazs.orders.dto.QuoteDTO;
 import com.rbalazs.orders.dto.QuoteItemDTO;
 import com.rbalazs.orders.enums.OrderAppValidations;
 import com.rbalazs.orders.exception.OrderCustomException;
+import com.rbalazs.orders.feign.StockFeignClient;
 import com.rbalazs.orders.model.Order;
 import com.rbalazs.orders.model.OrderItem;
 import com.rbalazs.orders.repository.OrderRepository;
 import io.micrometer.common.util.StringUtils;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +29,24 @@ public class OrderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
     private final OrderRepository orderRepository;
+    private final StockFeignClient stockFeignClient;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(final OrderRepository orderRepository, final StockFeignClient stockFeignClient) {
         this.orderRepository = orderRepository;
+        this.stockFeignClient = stockFeignClient;
     }
 
     /**
      * Place(creates) a new Order based on the {@link QuoteDTO} given as parameter.
+     * This method is declared as Transactional because the Order´s creation + product(s) stock update + email
+     * notification should execute atomically.
      *
      * @param quoteDTO the quote.
+     * @return the new Order identifier.
      */
-    public void placeOrder(QuoteDTO quoteDTO) {
+    @Transactional
+    public long placeOrder(final QuoteDTO quoteDTO) {
 
         String customerEmail = quoteDTO.getCustomerEmail();
         if (StringUtils.isEmpty(customerEmail)){
@@ -52,13 +60,23 @@ public class OrderService {
 
         List<OrderItem> orderItems = new ArrayList<OrderItem>();
         for (QuoteItemDTO quoteItem : quoteItems) {
-            // TODO(rodrigo.balazs) check whether the quote item is in stock or not calling Stock Microservice ..
-            OrderItem orderItem = new OrderItem(quoteItem.getProductName(), quoteItem.getRequestedQuantity());
+            String productName = quoteItem.getProductName();
+            int requestedQuantity = quoteItem.getRequestedQuantity();
+
+            if (stockFeignClient.getProductByName(productName).getBody() == null) {
+                throw new OrderCustomException(OrderAppValidations.PRODUCT_NOT_FOUND);
+            }
+
+            if (!stockFeignClient.isInStock(productName, requestedQuantity)){
+                throw new OrderCustomException(OrderAppValidations.OUT_OF_STOCK_PRODUCTS);
+            }
+            OrderItem orderItem = new OrderItem(productName, requestedQuantity);
             orderItems.add(orderItem);
         }
 
         Order order = new Order(customerEmail, orderItems);
-        orderRepository.save(order);
+        Long orderId = orderRepository.save(order).getId();
         // TODO(rodrigo.balazs) send a new order creation notification via the Notifications microservice ..
+        return orderId;
     }
 }

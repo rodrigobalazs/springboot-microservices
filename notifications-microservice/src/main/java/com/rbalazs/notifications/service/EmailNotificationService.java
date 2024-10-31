@@ -30,7 +30,7 @@ public class EmailNotificationService {
     private final JavaMailSender javaMailSender;
 
     @Autowired
-    public EmailNotificationService(JavaMailSender javaMailSender) {
+    public EmailNotificationService(final JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
 

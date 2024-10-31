@@ -9,7 +9,7 @@ import org.apache.commons.lang3.Validate;
 import java.util.Objects;
 
 /**
- * Represents a given Order Item,an OrderItem it´s associated to an specific {@link Order}.
+ * Represents a given Order Item, an OrderItem it´s associated to an specific {@link Order}.
  *
  * @author Rodrigo Balazs
  */

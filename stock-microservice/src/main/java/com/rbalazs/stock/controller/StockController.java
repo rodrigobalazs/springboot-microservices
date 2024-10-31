@@ -1,29 +1,47 @@
 package com.rbalazs.stock.controller;
 
+import com.rbalazs.stock.controller.swagger.StockControllerSwagger;
+import com.rbalazs.stock.model.Product;
 import com.rbalazs.stock.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * Stock REST Controller.
+ * API Documentation/Swagger at => http://<stock_app_url>/swagger-ui/index.html
  *
  * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/stock")
-public class StockController {
+public class StockController implements StockControllerSwagger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StockController.class);
     private final StockService stockService;
 
     @Autowired
-    public StockController(StockService stockService) {
+    public StockController(final StockService stockService) {
         this.stockService = stockService;
+    }
+
+    @GetMapping("/get-products")
+    public ResponseEntity<List<Product>> getProducts() {
+        LOGGER.info("starts to execute stockController.getProducts()");
+        List<Product> products = stockService.getProducts();
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<Product> getProductByName(@PathVariable("name") String name) {
+        LOGGER.info("starts to execute stockController.getProductByName() with name:{}" , name);
+        Product product = stockService.getProductByName(name);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @GetMapping("/is-in-stock")
@@ -31,6 +49,14 @@ public class StockController {
                              @RequestParam(value = "requestedQuantity") int requestedQuantity) {
         LOGGER.info("starts to execute stockController.isInStock() with product name:{}", productName);
         return stockService.isInStock(productName, requestedQuantity);
+    }
+
+    @PutMapping("/decreace-product-available-quantity")
+    public ResponseEntity<String> decreaceProductAvailableQuantity(@RequestParam(value = "productName") String productName,
+                                                                   @RequestParam(value = "quantityToDecreace") int quantityToDecreace) {
+        LOGGER.info("starts to execute stockController.decreaceProductAvailableQuantity() with product name:{}", productName);
+        stockService.decreaceProductAvailableQuantity(productName, quantityToDecreace);
+        return ResponseEntity.ok("the product available quantity has been successfully updated");
     }
 }
 

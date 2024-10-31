@@ -21,7 +21,7 @@ public class StockCustomExceptionHandler extends ResponseEntityExceptionHandler 
      * {the entity was not found in the Stock application}
      */
     @ExceptionHandler(StockCustomException.class)
-    public ResponseEntity<Object> handleStockCustomException(StockCustomException ex, WebRequest request) {
+    public ResponseEntity<Object> handleStockCustomException(final StockCustomException ex, final WebRequest request) {
         return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
  * @author Rodrigo Balazs
  */
 public enum StockAppValidations {
-    ENTITY_NOT_FOUND(HttpStatus.BAD_REQUEST, "the entity was not found in the Stock application");
+    PRODUCT_NOT_FOUND(HttpStatus.BAD_REQUEST, "the Product was not found in the Application");
 
     private final HttpStatus httpStatus;
     private final String message;

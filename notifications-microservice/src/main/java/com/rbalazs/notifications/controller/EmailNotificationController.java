@@ -1,5 +1,6 @@
 package com.rbalazs.notifications.controller;
 
+import com.rbalazs.notifications.controller.swagger.EmailNotificationControllerSwagger;
 import com.rbalazs.notifications.service.EmailNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,18 +9,19 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Email Notifications REST Controller.
+ * API Documentation/Swagger at => http://<notifications_app_url>/swagger-ui/index.html
  *
  * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/emailNotifications")
-public class EmailNotificationController {
+public class EmailNotificationController implements EmailNotificationControllerSwagger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailNotificationController.class);
     private final EmailNotificationService emailNotificationService;
 
     @Autowired
-    public EmailNotificationController(EmailNotificationService emailNotificationService) {
+    public EmailNotificationController(final EmailNotificationService emailNotificationService) {
         this.emailNotificationService = emailNotificationService;
     }
 

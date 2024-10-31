@@ -26,6 +26,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
+        <!-- Spring Cloud OpenFeign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
         <!-- Spring Data / Mysql Connector -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -52,6 +58,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- Stock app/microservice dependency -->
+        <dependency>
+            <groupId>com.rbalazs.stock</groupId>
+            <artifactId>stock-microservice</artifactId>
+            <version>${stock-app-microservice.version}</version>
         </dependency>
 
     </dependencies>

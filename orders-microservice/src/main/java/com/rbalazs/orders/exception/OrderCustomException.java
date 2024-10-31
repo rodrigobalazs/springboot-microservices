@@ -13,7 +13,7 @@ public class OrderCustomException extends RuntimeException {
     private HttpStatus status;
     private String message;
 
-    public OrderCustomException(OrderAppValidations orderAppValidations) {
+    public OrderCustomException(final OrderAppValidations orderAppValidations) {
         this.status = orderAppValidations.getHttpStatus();
         this.message = orderAppValidations.getMessage();
     }

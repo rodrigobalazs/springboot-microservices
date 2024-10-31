@@ -1,6 +1,7 @@
 package com.rbalazs.orders.dto;
 
 import com.rbalazs.orders.model.Order;
+import lombok.Data;
 
 import java.util.List;
 
@@ -10,24 +11,9 @@ import java.util.List;
  *
  * @author Rodrigo Balazs
  */
+@Data
 public class QuoteDTO {
 
     private String customerEmail;
     private List<QuoteItemDTO> items;
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public List<QuoteItemDTO> getItems() {
-        return items;
-    }
-
-    public void setItems(List<QuoteItemDTO> items) {
-        this.items = items;
-    }
 }

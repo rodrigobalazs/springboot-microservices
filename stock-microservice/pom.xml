@@ -37,6 +37,12 @@
             <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
+        <!-- SpringDoc OpenAPI / Swagger -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+
         <!-- Apache Commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>

@@ -13,7 +13,7 @@ public class StockCustomException extends RuntimeException {
     private HttpStatus status;
     private String message;
 
-    public StockCustomException(StockAppValidations stockAppValidations) {
+    public StockCustomException(final StockAppValidations stockAppValidations) {
         this.status = stockAppValidations.getHttpStatus();
         this.message = stockAppValidations.getMessage();
     }

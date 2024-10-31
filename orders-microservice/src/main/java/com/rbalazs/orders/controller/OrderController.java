@@ -21,15 +21,15 @@ public class OrderController {
     private final OrderService orderService;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(final OrderService orderService) {
         this.orderService = orderService;
     }
 
     @PostMapping("/place-order")
     public ResponseEntity<String> placeOrder(@RequestBody QuoteDTO quoteDTO) {
         LOGGER.info("starts to execute orderController.placeOrder()");
-        orderService.placeOrder(quoteDTO);
-        return ResponseEntity.ok("a new Order has been successfully created");
+        long orderId = orderService.placeOrder(quoteDTO);
+        return ResponseEntity.ok("a new Order has been successfully Placed with order_id:" + orderId);
     }
 }
 

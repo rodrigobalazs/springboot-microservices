@@ -21,7 +21,7 @@ public class OrderCustomExceptionHandler extends ResponseEntityExceptionHandler 
      * {the entity was not found in the Order application}
      */
     @ExceptionHandler(OrderCustomException.class)
-    public ResponseEntity<Object> handleOrderCustomException(OrderCustomException ex, WebRequest request) {
+    public ResponseEntity<Object> handleOrderCustomException(final OrderCustomException ex, final WebRequest request) {
         return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
     }
 }

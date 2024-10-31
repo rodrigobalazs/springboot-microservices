@@ -24,7 +24,7 @@ public class PopulateStockSampleDataService implements CommandLineRunner {
     StockRepository stockRepository;
 
     @Autowired
-    public PopulateStockSampleDataService(StockRepository stockRepository) {
+    public PopulateStockSampleDataService(final StockRepository stockRepository) {
         this.stockRepository = stockRepository;
     }
 
