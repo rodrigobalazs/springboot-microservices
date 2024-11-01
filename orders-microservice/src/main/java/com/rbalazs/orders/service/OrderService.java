@@ -4,7 +4,8 @@ import com.rbalazs.orders.dto.QuoteDTO;
 import com.rbalazs.orders.dto.QuoteItemDTO;
 import com.rbalazs.orders.enums.OrderAppValidations;
 import com.rbalazs.orders.exception.OrderCustomException;
-import com.rbalazs.orders.feign.StockFeignClient;
+import com.rbalazs.orders.feign.NotificationsClient;
+import com.rbalazs.orders.feign.StockClient;
 import com.rbalazs.orders.model.Order;
 import com.rbalazs.orders.model.OrderItem;
 import com.rbalazs.orders.repository.OrderRepository;
@@ -29,13 +30,26 @@ public class OrderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
     private final OrderRepository orderRepository;
-    private final StockFeignClient stockFeignClient;
+    private final StockClient stockClient;
+    private final NotificationsClient notificationsClient;
 
     @Autowired
-    public OrderService(final OrderRepository orderRepository, final StockFeignClient stockFeignClient) {
+    public OrderService(final OrderRepository orderRepository, final StockClient stockClient,
+                        final NotificationsClient notificationsClient) {
         this.orderRepository = orderRepository;
-        this.stockFeignClient = stockFeignClient;
+        this.stockClient = stockClient;
+        this.notificationsClient = notificationsClient;
     }
+
+    /**
+     * Retrieves a list with all the Orders
+     *
+     * @return a list of {@link Order}
+     */
+    public List<Order> getOrders() {
+        return orderRepository.findAll();
+    }
+
 
     /**
      * Place(creates) a new Order based on the {@link QuoteDTO} given as parameter.
@@ -63,11 +77,11 @@ public class OrderService {
             String productName = quoteItem.getProductName();
             int requestedQuantity = quoteItem.getRequestedQuantity();
 
-            if (stockFeignClient.getProductByName(productName).getBody() == null) {
+            if (stockClient.getProductByName(productName).getBody() == null) {
                 throw new OrderCustomException(OrderAppValidations.PRODUCT_NOT_FOUND);
             }
 
-            if (!stockFeignClient.isInStock(productName, requestedQuantity)){
+            if (!stockClient.isInStock(productName, requestedQuantity)){
                 throw new OrderCustomException(OrderAppValidations.OUT_OF_STOCK_PRODUCTS);
             }
             OrderItem orderItem = new OrderItem(productName, requestedQuantity);
@@ -75,8 +89,13 @@ public class OrderService {
         }
 
         Order order = new Order(customerEmail, orderItems);
-        Long orderId = orderRepository.save(order).getId();
-        // TODO(rodrigo.balazs) send a new order creation notification via the Notifications microservice ..
+        Long orderId = orderRepository.save(order).getOrderId();
+
+        for (OrderItem orderItem : orderItems) {
+            stockClient.decreaceProductAvailableQuantity(orderItem.getProductName(), orderItem.getRequestedQuantity());
+        }
+
+        notificationsClient.sendNewOrderNotification(customerEmail, orderId);
         return orderId;
     }
 }

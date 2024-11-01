@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.Validate;
-
 import java.util.Objects;
 
 /**
@@ -19,7 +18,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long productId;
 
     private String name;
     private int availableQuantity;
@@ -45,17 +44,18 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return availableQuantity == product.availableQuantity && Objects.equals(id, product.id)
-            && Objects.equals(name, product.name);
+        return availableQuantity == product.availableQuantity && Objects.equals(productId, product.productId)
+                && Objects.equals(name, product.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, availableQuantity);
+        return Objects.hash(productId, name, availableQuantity);
     }
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name='" + name + '\'' + ", availableQuantity=" + availableQuantity + '}';
+        return "Product{" + "productId=" + productId + ", name='" + name + '\'' + ", availableQuantity="
+                + availableQuantity + '}';
     }
 }

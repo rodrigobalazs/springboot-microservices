@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.Validate;
-
 import java.util.Objects;
 
 /**
@@ -16,8 +15,11 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-public class OrderItem extends Base {
+public class OrderItem {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderItemId;
     private String productName;
     private int requestedQuantity;
 
@@ -49,20 +51,19 @@ public class OrderItem extends Base {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         OrderItem orderItem = (OrderItem) o;
-        return requestedQuantity == orderItem.requestedQuantity && Objects.equals(productName, orderItem.productName)
-                && Objects.equals(order, orderItem.order);
+        return requestedQuantity == orderItem.requestedQuantity && Objects.equals(orderItemId, orderItem.orderItemId)
+                && Objects.equals(productName, orderItem.productName) && Objects.equals(order, orderItem.order);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), productName, requestedQuantity, order);
+        return Objects.hash(orderItemId, productName, requestedQuantity, order);
     }
 
     @Override
     public String toString() {
-        return "OrderItem{" + "productName='" + productName + '\'' + ", requestedQuantity=" + requestedQuantity
-                + ", order=" + order + '}';
+        return "OrderItem{" + "orderItemId=" + orderItemId + ", productName='" + productName + '\''
+                + ", requestedQuantity=" + requestedQuantity + ", order=" + order + '}';
     }
 }

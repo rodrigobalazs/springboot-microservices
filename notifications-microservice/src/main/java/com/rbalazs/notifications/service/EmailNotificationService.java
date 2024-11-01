@@ -43,7 +43,7 @@ public class EmailNotificationService {
     public void sendNewOrderNotification(final String customerEmail, final Long orderId) {
 
         if(StringUtils.isEmpty(springMailUsername) || StringUtils.isEmpty(springMailPassword)){
-            LOGGER.info("the email was not send cause the SMTP server is not configured correctly "
+            LOGGER.info("the new Order Notification Email was not sent because the SMTP server is not configured correctly "
                     + "('spring.mail.username' and 'spring.mail.password' properties needs to be assigned)");
             return;
         }
@@ -54,7 +54,7 @@ public class EmailNotificationService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(customerEmail);
         message.setSubject(NotificationsAppConstants.NEW_ORDER_EMAIL_SUBJECT);
-        message.setText(NotificationsAppConstants.NEW_ORDER_EMAIL_BODY + orderId);
+        message.setText(NotificationsAppConstants.NEW_ORDER_NOTIFICATION + orderId);
         javaMailSender.send(message);
     }
 }

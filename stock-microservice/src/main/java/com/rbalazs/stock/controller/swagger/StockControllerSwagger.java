@@ -1,5 +1,6 @@
 package com.rbalazs.stock.controller.swagger;
 
+import com.rbalazs.stock.controller.StockController;
 import com.rbalazs.stock.enums.StockAppConstants;
 import com.rbalazs.stock.model.Product;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Swagger interface related to {@link StockControllerSwagger}.
+ * Swagger interface related to {@link StockController}.
  * API Documentation/Swagger at => http://<stock_app_url>/swagger-ui/index.html
  *
  * @author Rodrigo Balazs

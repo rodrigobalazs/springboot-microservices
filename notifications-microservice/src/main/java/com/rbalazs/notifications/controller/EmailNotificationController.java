@@ -33,4 +33,3 @@ public class EmailNotificationController implements EmailNotificationControllerS
         emailNotificationService.sendNewOrderNotification(customerEmail, orderId);
     }
 }
-

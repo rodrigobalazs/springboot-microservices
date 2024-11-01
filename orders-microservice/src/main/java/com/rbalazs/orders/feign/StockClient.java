@@ -4,10 +4,8 @@ import com.rbalazs.orders.enums.OrderAppConstants;
 import com.rbalazs.stock.model.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
@@ -16,7 +14,7 @@ import java.util.List;
  * @author Rodrigo Balazs
  */
 @FeignClient(name = OrderAppConstants.STOCK_MICROSERVICE, url = OrderAppConstants.STOCK_MICROSERVICE_URL)
-public interface StockFeignClient {
+public interface StockClient {
 
     @GetMapping("/get-products")
     public ResponseEntity<List<Product>> getProducts();
@@ -28,8 +26,7 @@ public interface StockFeignClient {
     public boolean isInStock(@RequestParam(value = "productName") String productName,
                              @RequestParam(value = "requestedQuantity") int requestedQuantity);
 
-    @PostMapping("/decreace-product-available-quantity")
+    @PutMapping("/decreace-product-available-quantity")
     public ResponseEntity<String> decreaceProductAvailableQuantity(@RequestParam(value = "productName") String productName,
                                                                    @RequestParam(value = "quantityToDecreace") int quantityToDecreace);
-
 }

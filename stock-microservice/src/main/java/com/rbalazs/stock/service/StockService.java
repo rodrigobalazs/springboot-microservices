@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Stock Service.
@@ -58,7 +57,7 @@ public class StockService {
         if (product == null) {
             throw new StockCustomException(StockAppValidations.PRODUCT_NOT_FOUND);
         }
-        return product.getAvailableQuantity() > requestedQuantity;
+        return product.getAvailableQuantity() >= requestedQuantity;
     }
 
     public void decreaceProductAvailableQuantity(final String productName, final int quantityToDecreace) {

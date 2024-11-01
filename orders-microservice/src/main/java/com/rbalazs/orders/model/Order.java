@@ -1,9 +1,6 @@
 package com.rbalazs.orders.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.Validate;
@@ -19,8 +16,11 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "`order`")
-public class Order extends Base {
+public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
     private String customerEmail;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -54,18 +54,18 @@ public class Order extends Base {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         Order order = (Order) o;
-        return Objects.equals(customerEmail, order.customerEmail) && Objects.equals(items, order.items);
+        return Objects.equals(orderId, order.orderId) && Objects.equals(customerEmail, order.customerEmail)
+                && Objects.equals(items, order.items);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), customerEmail, items);
+        return Objects.hash(orderId, customerEmail, items);
     }
 
     @Override
     public String toString() {
-        return "Order{" + "customerEmail='" + customerEmail + '\'' + ", items=" + items + '}';
+        return "Order{" + "orderId=" + orderId + ", customerEmail='" + customerEmail + '\'' + ", items=" + items + '}';
     }
 }

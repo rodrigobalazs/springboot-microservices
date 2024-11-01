@@ -8,5 +8,7 @@ package com.rbalazs.notifications.enums;
 public enum NotificationsAppConstants {;
 
     public static final String NEW_ORDER_EMAIL_SUBJECT = "New Order";
-    public static final String NEW_ORDER_EMAIL_BODY = "a new Order has been created with order identifier: ";
+
+    // TODO(rodrigo.balazs) this const it´s also defined at OrderAppConstants.java, should be extracted in some shared project or similar to avoid code duplication
+    public static final String NEW_ORDER_NOTIFICATION = "a new Order has been placed with order ID: ";
 }
