@@ -26,7 +26,7 @@ public interface StockClient {
     public boolean isInStock(@RequestParam(value = "productName") String productName,
                              @RequestParam(value = "requestedQuantity") int requestedQuantity);
 
-    @PutMapping("/decreace-product-available-quantity")
-    public ResponseEntity<String> decreaceProductAvailableQuantity(@RequestParam(value = "productName") String productName,
-                                                                   @RequestParam(value = "quantityToDecreace") int quantityToDecreace);
+    @PutMapping("/decrease-product-available-quantity")
+    public ResponseEntity<String> decreaseProductAvailableQuantity(@RequestParam(value = "productName") String productName,
+                                                                   @RequestParam(value = "quantityToDecrease") int quantityToDecrease);
 }

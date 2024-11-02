@@ -50,11 +50,11 @@ public interface StockControllerSwagger {
             @Parameter(description = "quantity to check", example = "46", required = true)
             @RequestParam(value = "requestedQuantity") int requestedQuantity);
 
-    @Operation(summary = "Decreaces the available quantity of the Product given as parameter")
-    public ResponseEntity<String> decreaceProductAvailableQuantity(
+    @Operation(summary = "Decrease the available quantity of the Product given as parameter")
+    public ResponseEntity<String> decreaseProductAvailableQuantity(
             @Parameter(description = "product name", example = StockAppConstants.PRODUCT_SOFA, required = true)
             @RequestParam(value = "productName") String productName,
 
-            @Parameter(description = "quantity to decreace", example = "4", required = true)
-            @RequestParam(value = "quantityToDecreace") int quantityToDecreace);
+            @Parameter(description = "quantity to decrease", example = "4", required = true)
+            @RequestParam(value = "quantityToDecrease") int quantityToDecrease);
 }

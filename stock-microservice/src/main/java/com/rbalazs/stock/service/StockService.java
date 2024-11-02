@@ -60,12 +60,18 @@ public class StockService {
         return product.getAvailableQuantity() >= requestedQuantity;
     }
 
-    public void decreaceProductAvailableQuantity(final String productName, final int quantityToDecreace) {
+    /**
+     * Decrease the available quantity in stock of the Product given as parameter.
+     *
+     * @param productName product name
+     * @param quantityToDecrease quantity to decrease
+     */
+    public void decreaseProductAvailableQuantity(final String productName, final int quantityToDecrease) {
         Product product = getProductByName(productName);
         if (product == null) {
             throw new StockCustomException(StockAppValidations.PRODUCT_NOT_FOUND);
         }
-        int updatedQuantity = product.getAvailableQuantity() - quantityToDecreace;
+        int updatedQuantity = product.getAvailableQuantity() - quantityToDecrease;
         product.setAvailableQuantity(updatedQuantity);
         stockRepository.save(product);
     }

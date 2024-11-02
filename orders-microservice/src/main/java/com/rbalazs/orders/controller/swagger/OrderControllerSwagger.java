@@ -31,6 +31,8 @@ public interface OrderControllerSwagger {
                             array = @ArraySchema(schema = @Schema(implementation = Order.class)))})})
     public ResponseEntity<List<Order>> getOrders();
 
-    @Operation(summary = "Place a new Order", description = "Place a new Order based on the provided Quote details ( customer email + Items to purchase )")
+    @Operation(summary = "Place a new Order",
+            description = "Place a new Order based on the provided Quote details ( customer email + Items to purchase ).  " +
+                    "This operation will also decrement the quantity in stock of the purchased Item(s) and will send a New Order email notification ( if configured )")
     public ResponseEntity<String> placeOrder(@RequestBody QuoteDTO quoteDTO);
 }

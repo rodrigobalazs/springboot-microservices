@@ -53,8 +53,12 @@ public class OrderService {
 
     /**
      * Place(creates) a new Order based on the {@link QuoteDTO} given as parameter.
-     * This method is declared as Transactional because the Order´s creation + product(s) stock update + email
-     * notification should execute atomically.
+     *
+     * This method is declared as Transactional because the Order´s creation + stock decrement of the purchased Item(s)
+     * + email notification should execute atomically.
+     *
+     * This service communicates against the Notifications and Stock Apps/Microservices via {@link NotificationsClient}
+     * and {@link StockClient}
      *
      * @param quoteDTO the quote.
      * @return the new Order identifier.
@@ -92,7 +96,7 @@ public class OrderService {
         Long orderId = orderRepository.save(order).getOrderId();
 
         for (OrderItem orderItem : orderItems) {
-            stockClient.decreaceProductAvailableQuantity(orderItem.getProductName(), orderItem.getRequestedQuantity());
+            stockClient.decreaseProductAvailableQuantity(orderItem.getProductName(), orderItem.getRequestedQuantity());
         }
 
         notificationsClient.sendNewOrderNotification(customerEmail, orderId);

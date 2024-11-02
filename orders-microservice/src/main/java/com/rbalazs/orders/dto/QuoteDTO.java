@@ -6,8 +6,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * Represents a given Quote, which represents the Cart´s Items a given Customer wants to purchase. In case all the
- * business logic executes as expected, the Quote will be converted into a {@link Order}.
+ * Represents a given Quote ( represents the Cart´s Items a given Customer wants to purchase ).
+ * In case all the required business rules executes as expected, the Quote will be converted and persisted into a {@link Order}.
  *
  * @author Rodrigo Balazs
  */

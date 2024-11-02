@@ -51,12 +51,12 @@ public class StockController implements StockControllerSwagger {
         return stockService.isInStock(productName, requestedQuantity);
     }
 
-    @PutMapping("/decreace-product-available-quantity")
-    public ResponseEntity<String> decreaceProductAvailableQuantity(@RequestParam(value = "productName") String productName,
-                                                                   @RequestParam(value = "quantityToDecreace") int quantityToDecreace) {
-        LOGGER.info("starts to execute stockController.decreaceProductAvailableQuantity() with product name:{}", productName);
-        stockService.decreaceProductAvailableQuantity(productName, quantityToDecreace);
-        return ResponseEntity.ok("the product available quantity has been successfully updated");
+    @PutMapping("/decrease-product-available-quantity")
+    public ResponseEntity<String> decreaseProductAvailableQuantity(@RequestParam(value = "productName") String productName,
+                                                                   @RequestParam(value = "quantityToDecrease") int quantityToDecrease) {
+        LOGGER.info("starts to execute stockController.decreaseProductAvailableQuantity() with product name:{}", productName);
+        stockService.decreaseProductAvailableQuantity(productName, quantityToDecrease);
+        return ResponseEntity.ok("the product available quantity has been successfully decreased");
     }
 }
 
