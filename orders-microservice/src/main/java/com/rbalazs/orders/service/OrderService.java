@@ -41,11 +41,6 @@ public class OrderService {
         this.notificationsClient = notificationsClient;
     }
 
-    /**
-     * Retrieves a list with all the Orders
-     *
-     * @return a list of {@link Order}
-     */
     public List<Order> getOrders() {
         return orderRepository.findAll();
     }

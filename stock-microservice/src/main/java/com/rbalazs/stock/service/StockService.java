@@ -24,21 +24,10 @@ public class StockService {
         this.stockRepository = stockRepository;
     }
 
-    /**
-     * Retrieves a list with all the Products
-     *
-     * @return a list of {@link Product}
-     */
     public List<Product> getProducts() {
         return stockRepository.findAll();
     }
 
-    /**
-     * Retrieves a Product by the Product Name given as parameter.
-     *
-     * @param name the product name to retrieve
-     * @return a {@link Product}
-     */
     public Product getProductByName(final String name) {
         return stockRepository.findByName(name).orElse(null);
     }

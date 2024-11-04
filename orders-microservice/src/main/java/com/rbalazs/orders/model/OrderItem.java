@@ -35,8 +35,8 @@ public class OrderItem {
     /**
      * Creates a new Order Item.
      *
-     * @param theProductName the product name, cannot be null nor empty.
-     * @param theRequestedQuantity the requested quantity, cannot be negative or zero.
+     * @param theProductName the product name.
+     * @param theRequestedQuantity the requested quantity.
      */
     public OrderItem(final String theProductName, final int theRequestedQuantity) {
         Validate.notEmpty(theProductName, "The product name cannot be null nor empty");
