@@ -4,8 +4,6 @@ import org.springframework.http.HttpStatus;
 
 /**
  * Enum which contains some validation messages related to the Orders app/microservice.
- *
- * @author Rodrigo Balazs
  */
 public enum OrderAppValidations {
     PRODUCT_NOT_FOUND(HttpStatus.BAD_REQUEST, "some of the requested Products were not found in the Application"),

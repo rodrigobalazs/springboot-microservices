@@ -15,8 +15,6 @@ import java.util.List;
 /**
  * Stock REST Controller.
  * API Documentation/Swagger at => http://<stock_app_url>/swagger-ui/index.html
- *
- * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/stock")

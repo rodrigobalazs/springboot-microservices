@@ -20,8 +20,6 @@ import java.util.List;
 /**
  * Swagger interface related to {@link StockController}.
  * API Documentation/Swagger at => http://<stock_app_url>/swagger-ui/index.html
- *
- * @author Rodrigo Balazs
  */
 @Tag(name = "Stock API", description = "API endpoints related to the Stock App/Microservice")
 public interface StockControllerSwagger {
@@ -39,12 +37,12 @@ public interface StockControllerSwagger {
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = Product.class))})})
     public ResponseEntity<Product> getProductByName(
-            @Parameter(description = "product name", example = StockAppConstants.PRODUCT_SOFA, required = true)
+            @Parameter(description = "product name", example = StockAppConstants.PRODUCT_SOFA_NAME, required = true)
             @PathVariable String name);
 
     @Operation(summary = "Retrieves whether the requested quantity of the Product given as parameter is in Stock or not")
     public boolean isInStock(
-            @Parameter(description = "product name to check stock availability", example = StockAppConstants.PRODUCT_SOFA, required = true)
+            @Parameter(description = "product name to check stock availability", example = StockAppConstants.PRODUCT_SOFA_NAME, required = true)
             @RequestParam(value = "productName") String productName,
 
             @Parameter(description = "quantity to check", example = "46", required = true)
@@ -52,7 +50,7 @@ public interface StockControllerSwagger {
 
     @Operation(summary = "Decrease the available quantity of the Product given as parameter")
     public ResponseEntity<String> decreaseProductAvailableQuantity(
-            @Parameter(description = "product name", example = StockAppConstants.PRODUCT_SOFA, required = true)
+            @Parameter(description = "product name", example = StockAppConstants.PRODUCT_SOFA_NAME, required = true)
             @RequestParam(value = "productName") String productName,
 
             @Parameter(description = "quantity to decrease", example = "4", required = true)

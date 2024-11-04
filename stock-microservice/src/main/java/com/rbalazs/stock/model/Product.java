@@ -8,8 +8,6 @@ import java.util.Objects;
 
 /**
  * Represents a Product with a given available stock quantity.
- *
- * @author Rodrigo Balazs
  */
 @Getter
 @Setter

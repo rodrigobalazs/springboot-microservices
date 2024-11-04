@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Swagger interface related to {@link EmailNotificationController}.
  * API Documentation/Swagger at => http://<notifications_app_url>/swagger-ui/index.html
- *
- * @author Rodrigo Balazs
  */
 @Tag(name = "Email Notifications API", description = "API endpoints related to the Notifications App/Microservice")
 public interface EmailNotificationControllerSwagger {

@@ -3,8 +3,6 @@ package com.rbalazs.orders.enums;
 
 /**
  * Enum which contains some constants related to the Orders app/microservice.
- *
- * @author Rodrigo Balazs
  */
 public enum OrderAppConstants {;
 

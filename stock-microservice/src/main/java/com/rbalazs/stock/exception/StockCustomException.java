@@ -6,8 +6,6 @@ import org.springframework.http.HttpStatus;
 /**
  * Custom Exception related to the Stock app/microservice,
  * the error messages/status codes could be taken from {@link StockAppValidations}
- *
- * @author Rodrigo Balazs
  */
 public class StockCustomException extends RuntimeException {
     private HttpStatus status;

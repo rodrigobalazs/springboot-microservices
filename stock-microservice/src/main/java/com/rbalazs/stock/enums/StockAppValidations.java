@@ -4,8 +4,6 @@ import org.springframework.http.HttpStatus;
 
 /**
  * Enum which contains some validation messages related to the Stock app/microservice.
- *
- * @author Rodrigo Balazs
  */
 public enum StockAppValidations {
     PRODUCT_NOT_FOUND(HttpStatus.BAD_REQUEST, "the Product was not found in the Application");

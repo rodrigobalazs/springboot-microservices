@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Email Notifications REST Controller.
  * API Documentation/Swagger at => http://<notifications_app_url>/swagger-ui/index.html
- *
- * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/emailNotifications")

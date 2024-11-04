@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Client used to communicate against the Notifications app/microservice via Spring Cloud OpenFeign.
- *
- * @author Rodrigo Balazs
  */
 @FeignClient(name = OrderAppConstants.NOTIFICATIONS_MICROSERVICE, url = OrderAppConstants.NOTIFICATIONS_MICROSERVICE_URL)
 public interface NotificationsClient {

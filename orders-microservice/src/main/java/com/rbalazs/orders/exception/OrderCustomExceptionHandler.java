@@ -7,8 +7,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 /**
  * Used to intercept {@link OrderCustomException}
- *
- * @author Rodrigo Balazs
  */
 @ControllerAdvice
 public class OrderCustomExceptionHandler extends ResponseEntityExceptionHandler {

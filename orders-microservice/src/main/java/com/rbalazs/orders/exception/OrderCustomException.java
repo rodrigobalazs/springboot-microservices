@@ -6,8 +6,6 @@ import org.springframework.http.HttpStatus;
 /**
  * Custom Exception related to the Order app/microservice,
  * the error messages/status codes could be taken from {@link OrderAppValidations}
- *
- * @author Rodrigo Balazs
  */
 public class OrderCustomException extends RuntimeException {
     private HttpStatus status;

@@ -18,8 +18,6 @@ import java.util.List;
 /**
  * Swagger interface related to {@link OrderController}.
  * API Documentation/Swagger at => http://<orders_app_url>/swagger-ui/index.html
- *
- * @author Rodrigo Balazs
  */
 @Tag(name = "Orders API", description = "API endpoints related to Orders App/Microservice")
 public interface OrderControllerSwagger {

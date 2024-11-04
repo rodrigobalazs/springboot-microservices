@@ -12,8 +12,6 @@ import org.apache.commons.collections4.CollectionUtils;
 
 /**
  * Populates the stock database with sample data.
- *
- * @author Rodrigo Balazs
  */
 @Service
 public class PopulateStockSampleDataService implements CommandLineRunner {
@@ -35,8 +33,8 @@ public class PopulateStockSampleDataService implements CommandLineRunner {
             return;
         }
         LOGGER.info("populates the stock database with some initial sample data ..");
-        createProduct(StockAppConstants.PRODUCT_OFFICE_CHAIR, StockAppConstants.PRODUCT_OFFICE_CHAIR_AVAILABLE_QUANTITY);
-        createProduct(StockAppConstants.PRODUCT_SOFA, StockAppConstants.PRODUCT_SOFA_AVAILABLE_QUANTITY);
+        createProduct(StockAppConstants.PRODUCT_OFFICE_CHAIR_NAME, StockAppConstants.PRODUCT_OFFICE_CHAIR_AVAILABLE_QUANTITY);
+        createProduct(StockAppConstants.PRODUCT_SOFA_NAME, StockAppConstants.PRODUCT_SOFA_AVAILABLE_QUANTITY);
     }
 
     private void createProduct(final String productName, final Integer availableQuantity){
