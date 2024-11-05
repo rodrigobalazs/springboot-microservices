@@ -31,26 +31,26 @@ Misc Libraries (  Maven  /  Docker  /  SpringDoc OpenAPI  /  Spring Email  /  Lo
 git clone https://github.com/rodrigobalazs/springboot-microservices.git;
 
 # start a mysql docker container associated to the Stock Microservice
-docker run --name stock_db -e MYSQL_DATABASE=stock_db -e MYSQL_USER=<db_user> \
-    -e MYSQL_PASSWORD=<db_password> -e MYSQL_ROOT_PASSWORD=<db_password> \
+docker run --name stock_db -e MYSQL_DATABASE=stock_db -e MYSQL_USER=user \
+    -e MYSQL_PASSWORD=pass -e MYSQL_ROOT_PASSWORD=pass \
     -p 3306:3306 -d mysql:latest;
 
 # make sure to update stock-microservice/src/main/resources/application.properties with
-# the <db_user> and <db_password> defined in the previous point
-spring.datasource.username=<db_user>
-spring.datasource.password=<db_password>
+# the MYSQL_USER and MYSQL_PASSWORD defined in the previous point
+spring.datasource.username=user
+spring.datasource.password=pass
 
 
 # start an additional mysql docker container associated to the Order Microservice
 # note: the port has changed from 3306 to 3307 to avoid collisions between the docker DBs
-docker run --name order_db -e MYSQL_DATABASE=order_db -e MYSQL_USER=<db_user> \
-    -e MYSQL_PASSWORD=<db_password> -e MYSQL_ROOT_PASSWORD=<db_password> \
+docker run --name order_db -e MYSQL_DATABASE=order_db -e MYSQL_USER=user \
+    -e MYSQL_PASSWORD=pass -e MYSQL_ROOT_PASSWORD=pass \
     -p 3307:3306 -d mysql:latest;
 
 # make sure to update orders-microservice/src/main/resources/application.properties with
-# the <db_user> and <db_password> defined in the previous point
-spring.datasource.username=<db_user>
-spring.datasource.password=<db_password>
+# the MYSQL_USER and MYSQL_PASSWORD defined in the previous point
+spring.datasource.username=user
+spring.datasource.password=pass
 
 # <optional step> configure a Gmail account to act as the New Order notification 
 # email SMTP server =>
