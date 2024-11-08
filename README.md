@@ -8,12 +8,12 @@ The goal is to provide some REST APIs to manage Orders and Products.<br/><br/>
 check and decrement the stock availability of the requested Items.<br/><br/>
 -Finally, the ````Orders Microservice```` will persist into the database the new Order, and will call  the
 ````Notifications Microservice```` to dispatch  a 'New Order' notification email to the Customer (in case the SMTP email
-server it´s configured)<br/><br/>
-- As an additional feature the ````Notifications Microservice```` it´s configured to use the 'Rate Limiter' design
-pattern ( allows 1 request POST /send-new-order-notification every 10 seconds ) and the ````Stock Microservice````
-it´s configured to use the 'Circuit Breaker' design pattern ( over this specific endpoint GET /get-products )<br/><br/>
-
-<br/>
+server it´s configured)<br/>
+#### Rate Limiter and Circuit Breaker ( Microservices Design Patterns ) =>
+-As an additional feature the ````Notifications Microservice```` it´s configured to use the ````Rate Limiter```` design
+pattern ( allows 1 request POST /send-new-order-notification every 10 seconds ) and the
+````Stock Microservice```` it´s configured to use the ````Circuit Breaker```` design pattern ( will be triggered if an
+exception is produced over the endpoint GET /get-products )<br/><br/>
 
 ### 🔧 Technology Stack
 
@@ -80,7 +80,6 @@ cd ../orders-microservice; mvn spring-boot:run;
 cd ../notifications-microservice; mvn spring-boot:run;
 ```
 <br/>
-<br/>
 
 ### 💡 Orders Microservice ( API Examples )
 
@@ -122,7 +121,6 @@ http://localhost:8081/swagger-ui/index.html
 ![](https://github.com/rodrigobalazs/springboot-microservices/blob/main/orders-microservice/src/main/resources/static/orders_app_swagger.png)
 
 <br/>
-<br/>
 
 ### 💡 Stock Microservice ( API Examples )
 
@@ -147,11 +145,11 @@ curl -X PUT "http://localhost:8082/stock/decrease-product-available-quantity?pro
 
 ### 💡 Stock Microservice ( how to test 'Circuit Breaker' )
 
-#### In order to test whether the 'Circuit Breaker' works as expected over the Stock Microservice, modify
-#### StockController.java to force a RuntimeException =>
+#### In order to test whether the 'Circuit Breaker' works as expected over the Stock Microservice, modify StockController.java to force a RuntimeException =>
 ```
 public ResponseEntity<List<Product>> getProducts() {
-    throw new RuntimeException("forced exception to test whether the Circuit Breaker it´s being triggered as expected");
+    throw new RuntimeException("forced exception to test whether the Circuit Breaker
+         it´s being triggered as expected");
 }
 ```
 
@@ -161,8 +159,8 @@ curl -X GET http://localhost:8082/stock/get-products -H 'accept: application/jso
 ```
 -the IDE console should display a log trace similar to this one =>
 ```
-c.r.n.c.StockController: Circuit Breaker has been triggered for Stock Microservice´s StockController,
-proceed to execute circuitBreakerFallback() instead getProducts()
+c.r.n.c.StockController: Circuit Breaker has been triggered for Stock Microservice´s
+StockController, proceed to execute circuitBreakerFallback() instead getProducts()
 ```
 <br/>
 
@@ -172,7 +170,6 @@ http://localhost:8082/swagger-ui/index.html
 
 ![](https://github.com/rodrigobalazs/springboot-microservices/blob/main/stock-microservice/src/main/resources/static/stock_app_swagger.png)
 
-<br/>
 <br/>
 
 ### 💡 Notifications Microservice ( API Examples )
@@ -188,8 +185,7 @@ curl -X POST "http://localhost:8083/emailNotifications/send-new-order-notificati
 
 ### 💡 Notifications Microservice ( how to test 'Rate Limiter' )
 
-#### In order to test whether the 'Rate Limiter' works as expected over the Notifications Microservice, execute 2 or more
-#### calls of this API endpoint in less than 10 seconds =>
+#### In order to test whether the 'Rate Limiter' works as expected over the Notifications Microservice, execute 2 or more calls of this API endpoint in less than 10 seconds =>
 ```
 curl -X POST "http://localhost:8083/emailNotifications/send-new-order-notification" \
      -d "customerEmail=somecustomer@emailtest.com" \
@@ -198,8 +194,9 @@ curl -X POST "http://localhost:8083/emailNotifications/send-new-order-notificati
 ```
 -the IDE console should display a log trace similar to this one =>
 ```
-c.r.n.c.EmailNotificationController: Rate Limiter has been triggered for Notifications Microservice´s
-EmailNotificationController, proceed to execute rateLimiterFallback() instead sendNewOrderNotification().
+c.r.n.c.EmailNotificationController: Rate Limiter has been triggered for Notifications
+Microservice´s EmailNotificationController, proceed to execute rateLimiterFallback()
+instead sendNewOrderNotification().
 ```
 <br/>
 
