@@ -8,7 +8,10 @@ The goal is to provide some REST APIs to manage Orders and Products.<br/><br/>
 check and decrement the stock availability of the requested Items.<br/><br/>
 -Finally, the ````Orders Microservice```` will persist into the database the new Order, and will call  the
 ````Notifications Microservice```` to dispatch  a 'New Order' notification email to the Customer (in case the SMTP email
-server it´s configured)
+server it´s configured)<br/><br/>
+- As an additional feature the ````Notifications Microservice```` it´s configured to use the 'Rate Limiter' design
+pattern ( allows 1 request POST /send-new-order-notification every 10 seconds ) and the ````Stock Microservice````
+it´s configured to use the 'Circuit Breaker' design pattern ( over this specific endpoint GET /get-products )<br/><br/>
 
 <br/>
 
@@ -17,7 +20,7 @@ server it´s configured)
 ```
 Java 17
 Spring Boot 3 ( REST API )
-Spring Cloud OpenFeign
+Spring Cloud OpenFeign / Resilence4j
 Spring Data ( MySQL )
 Misc Libraries (  Maven  /  Docker  /  SpringDoc OpenAPI  /  Spring Email  /  Lombok  )
 ```
@@ -83,8 +86,9 @@ cd ../notifications-microservice; mvn spring-boot:run;
 
 #### 1. Place a new Order =>
 
--Place a new Order based on the provided Quote details ( customer email + Items to purchase ).  This operation will also
-decrement the quantity in stock of the purchased Item(s) and will send a New Order email notification ( if configured )
+-Place a new Order based on the provided Quote details ( customer email + Items to purchase ).<br/>
+This operation will also decrement the quantity in stock of the purchased Item(s) and will send a
+New Order email notification ( if configured )
 ```
 curl -X POST http://localhost:8081/orders/place-order  \
      -H 'accept: application/json'  \
@@ -141,6 +145,27 @@ curl -X PUT "http://localhost:8082/stock/decrease-product-available-quantity?pro
 
 <br/>
 
+### 💡 Stock Microservice ( how to test 'Circuit Breaker' )
+
+#### In order to test whether the 'Circuit Breaker' works as expected over the Stock Microservice, modify
+#### StockController.java to force a RuntimeException =>
+```
+public ResponseEntity<List<Product>> getProducts() {
+    throw new RuntimeException("forced exception to test whether the Circuit Breaker it´s being triggered as expected");
+}
+```
+
+#### after that, execute this API endpoint =>
+```
+curl -X GET http://localhost:8082/stock/get-products -H 'accept: application/json';
+```
+-the IDE console should display a log trace similar to this one =>
+```
+c.r.n.c.StockController: Circuit Breaker has been triggered for Stock Microservice´s StockController,
+proceed to execute circuitBreakerFallback() instead getProducts()
+```
+<br/>
+
 ### 🔍 Stock Microservice ( API Documentation / Swagger )
 
 http://localhost:8082/swagger-ui/index.html
@@ -158,6 +183,23 @@ curl -X POST "http://localhost:8083/emailNotifications/send-new-order-notificati
      -d "customerEmail=somecustomer@emailtest.com" \
      -d "orderId=100" \
      -H 'accept: application/json';
+```
+<br/>
+
+### 💡 Notifications Microservice ( how to test 'Rate Limiter' )
+
+#### In order to test whether the 'Rate Limiter' works as expected over the Notifications Microservice, execute 2 or more
+#### calls of this API endpoint in less than 10 seconds =>
+```
+curl -X POST "http://localhost:8083/emailNotifications/send-new-order-notification" \
+     -d "customerEmail=somecustomer@emailtest.com" \
+     -d "orderId=100" \
+     -H 'accept: application/json';
+```
+-the IDE console should display a log trace similar to this one =>
+```
+c.r.n.c.EmailNotificationController: Rate Limiter has been triggered for Notifications Microservice´s
+EmailNotificationController, proceed to execute rateLimiterFallback() instead sendNewOrderNotification().
 ```
 <br/>
 

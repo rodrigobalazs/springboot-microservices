@@ -3,6 +3,7 @@ package com.rbalazs.stock.controller;
 import com.rbalazs.stock.controller.swagger.StockControllerSwagger;
 import com.rbalazs.stock.model.Product;
 import com.rbalazs.stock.service.StockService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,18 @@ import java.util.List;
 /**
  * Stock REST Controller.
  * API Documentation/Swagger at => http://<stock_app_url>/swagger-ui/index.html
+ *
+ * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/stock")
 public class StockController implements StockControllerSwagger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StockController.class);
+    private static final String CIRCUIT_BREAKER_FALLBACK_MESSAGE = "Circuit Breaker has been triggered for " +
+            "Stock Microservice´s StockController, proceed to execute circuitBreakerFallback() " +
+            "instead getProducts().";
+
     private final StockService stockService;
 
     @Autowired
@@ -29,10 +36,16 @@ public class StockController implements StockControllerSwagger {
     }
 
     @GetMapping("/get-products")
+    @CircuitBreaker(name = "stock_microservice_circuit_breaker", fallbackMethod = "circuitBreakerFallback")
     public ResponseEntity<List<Product>> getProducts() {
         LOGGER.info("starts to execute stockController.getProducts()");
         List<Product> products = stockService.getProducts();
         return ResponseEntity.ok(products);
+    }
+
+    public ResponseEntity<List<Product>> circuitBreakerFallback(Throwable ex) {
+        LOGGER.info(CIRCUIT_BREAKER_FALLBACK_MESSAGE);
+        return ResponseEntity.ok(List.of());
     }
 
     @GetMapping("/name/{name}")

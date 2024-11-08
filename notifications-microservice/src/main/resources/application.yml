@@ -1,0 +1,9 @@
+# Notifications Microservice - Resilence4j configuration
+
+# rate limiter configuration ( only 1 request is allowed every 10 seconds )
+resilience4j.ratelimiter:
+  instances:
+    notifications_microservice_rate_limiter:
+      limitForPeriod: 1
+      limitRefreshPeriod: 10s
+      timeoutDuration: 500ms

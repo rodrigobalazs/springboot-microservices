@@ -24,7 +24,10 @@ import java.util.List;
 @Tag(name = "Stock API", description = "API endpoints related to the Stock App/Microservice")
 public interface StockControllerSwagger {
 
-    @Operation(summary = "Retrieves all Products")
+    @Operation(summary = "Retrieves all Products",
+            description = "Retrieves all Products.<br/><br/>" +
+                    "Note => This API endpoint has been configured with 'Circuit Breaker' ( in 'open' state " +
+                    "will fallback execution to circuitBreakerFallback() )")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "returns a JSON Array with all the Products",
                     content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE,

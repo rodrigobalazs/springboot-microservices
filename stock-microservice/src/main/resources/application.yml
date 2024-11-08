@@ -1,0 +1,9 @@
+# Stock Microservice - Resilence4j configuration
+
+# circuit breaker configuration
+resilience4j.circuitbreaker:
+  instances:
+    stock_microservice_circuit_breaker:
+      waitDurationInOpenState: 5s
+      recordExceptions:
+        - java.lang.RuntimeException

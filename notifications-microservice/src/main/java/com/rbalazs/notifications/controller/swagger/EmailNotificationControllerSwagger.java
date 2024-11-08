@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Email Notifications API", description = "API endpoints related to the Notifications App/Microservice")
 public interface EmailNotificationControllerSwagger {
 
-    @Operation(summary = "Sends a new Order Notification Email")
+    @Operation(summary = "Sends a new Order Notification Email",
+            description = "Sends a new Order Notification Email to the customer email given as parameter. <br/><br/>" +
+                    "Note => This API endpoint has been configured with 'Rate Limiter' ( allows 1 request every 10 seconds )",
+            tags = {"Email Notifications API"})
     public void sendNewOrderNotification(
             @Parameter(description = "customer email to send the notification", example = "somecustomer@email.com", required = true)
             @RequestParam(value = "customerEmail") String customerEmail,
