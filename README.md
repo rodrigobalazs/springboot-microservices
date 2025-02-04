@@ -12,7 +12,7 @@ server it´s configured)<br/>
 #### Rate Limiter and Circuit Breaker ( Microservices Design Patterns ) =>
 -As an additional feature the ````Notifications Microservice```` it´s configured to use the ````Rate Limiter```` design
 pattern ( allows 1 request POST /send-new-order-notification every 10 seconds ) and the
-````Stock Microservice```` it´s configured to use the ````Circuit Breaker```` design pattern ( will be triggered if an
+````Stock Microservice```` it´s configured to use the ````Circuit Breaker```` design pattern ( will be triggered in case an
 exception is produced over the endpoint GET /get-products )<br/><br/>
 
 ### 🔧 Technology Stack
@@ -34,26 +34,26 @@ Misc Libraries (  Maven  /  Docker  /  SpringDoc OpenAPI  /  Spring Email  /  Lo
 git clone https://github.com/rodrigobalazs/springboot-microservices.git;
 
 # start a mysql docker container associated to the Stock Microservice
-docker run --name stock_db -e MYSQL_DATABASE=stock_db -e MYSQL_USER=user \
-    -e MYSQL_PASSWORD=pass -e MYSQL_ROOT_PASSWORD=pass \
+docker run --name stock_db -e MYSQL_DATABASE=stock_db -e MYSQL_USER=<user> \
+    -e MYSQL_PASSWORD=<pass> -e MYSQL_ROOT_PASSWORD=<pass> \
     -p 3306:3306 -d mysql:latest;
 
 # make sure to update stock-microservice/src/main/resources/application.properties with
 # the MYSQL_USER and MYSQL_PASSWORD defined in the previous point
-spring.datasource.username=user
-spring.datasource.password=pass
+spring.datasource.username=<user>
+spring.datasource.password=<pass>
 
 
 # start an additional mysql docker container associated to the Order Microservice
 # note: the port has changed from 3306 to 3307 to avoid collisions between the docker DBs
-docker run --name order_db -e MYSQL_DATABASE=order_db -e MYSQL_USER=user \
-    -e MYSQL_PASSWORD=pass -e MYSQL_ROOT_PASSWORD=pass \
+docker run --name order_db -e MYSQL_DATABASE=order_db -e MYSQL_USER=<user> \
+    -e MYSQL_PASSWORD=<pass> -e MYSQL_ROOT_PASSWORD=<pass> \
     -p 3307:3306 -d mysql:latest;
 
 # make sure to update orders-microservice/src/main/resources/application.properties with
 # the MYSQL_USER and MYSQL_PASSWORD defined in the previous point
-spring.datasource.username=user
-spring.datasource.password=pass
+spring.datasource.username=<user>
+spring.datasource.password=<pass>
 
 # <optional step> configure a Gmail account to act as the New Order notification 
 # email SMTP server =>
@@ -61,7 +61,7 @@ spring.datasource.password=pass
 https://myaccount.google.com > search for App Passwords > create a new app "store_app" 
 > copy the value of the generated <app_password>
 -update notifications-microservice/src/main/resources/application.properties with =>
-spring.mail.username=<gmail_used_to_generate_the_app>
+spring.mail.username=<gmail_account_used_to_generate_the_app>
 spring.mail.password=<app_password>
 
 # compile all the apps/microservices ..
@@ -87,7 +87,7 @@ cd ../notifications-microservice; mvn spring-boot:run;
 
 -Place a new Order based on the provided Quote details ( customer email + Items to purchase ).<br/>
 This operation will also decrement the quantity in stock of the purchased Item(s) and will send a
-New Order email notification ( if configured )
+New Order email notification ( in case email notification is configured )
 ```
 curl -X POST http://localhost:8081/orders/place-order  \
      -H 'accept: application/json'  \
@@ -160,7 +160,7 @@ curl -X GET http://localhost:8082/stock/get-products -H 'accept: application/jso
 -the IDE console should display a log trace similar to this one =>
 ```
 c.r.n.c.StockController: Circuit Breaker has been triggered for Stock Microservice´s
-StockController, proceed to execute circuitBreakerFallback() instead getProducts()
+StockController, executing circuitBreakerFallback() instead getProducts()
 ```
 <br/>
 
@@ -195,7 +195,7 @@ curl -X POST "http://localhost:8083/emailNotifications/send-new-order-notificati
 -the IDE console should display a log trace similar to this one =>
 ```
 c.r.n.c.EmailNotificationController: Rate Limiter has been triggered for Notifications
-Microservice´s EmailNotificationController, proceed to execute rateLimiterFallback()
+Microservice´s EmailNotificationController, executing rateLimiterFallback()
 instead sendNewOrderNotification().
 ```
 <br/>

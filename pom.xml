@@ -105,7 +105,7 @@
 			</dependency>
 
 			<!-- Resilence4j needs an up-to-date SLF4J library to workaround during bootstrap
-             IllegalArgumentException class org.slf4j.helpers.NOPLoggerFactory -->
+                 "IllegalArgumentException class org.slf4j.helpers.NOPLoggerFactory" -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>

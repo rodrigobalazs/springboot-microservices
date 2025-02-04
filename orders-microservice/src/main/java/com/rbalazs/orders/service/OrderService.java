@@ -49,8 +49,8 @@ public class OrderService {
     /**
      * Place(creates) a new Order based on the {@link QuoteDTO} given as parameter.
      *
-     * This method is declared as Transactional because the Order´s creation + stock decrement of the purchased Item(s)
-     * + email notification should execute atomically.
+     * This method is declared as Transactional because the Order´s creation, the stock decrement of the purchased Item(s)
+     * and the email notification should execute atomically.
      *
      * This service communicates against the Notifications and Stock Apps/Microservices via {@link NotificationsClient}
      * and {@link StockClient}

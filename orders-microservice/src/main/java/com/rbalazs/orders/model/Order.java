@@ -44,7 +44,7 @@ public class Order {
     }
 
     /* this method is needed to synchronize both sides of the bidirectional association between Order and OrderItem
-    ref: https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate */
+       ref: "https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate" */
     public void addItems(List<OrderItem> items) {
         this.items = items;
         items.forEach(item -> item.setOrder(this));

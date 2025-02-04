@@ -62,7 +62,7 @@
         </dependency>
 
         <!-- Resilence4j - SLF4J needs to point to an up-to-date version to workaround during bootstrap
-			IllegalArgumentException class org.slf4j.helpers.NOPLoggerFactory -->
+			 "IllegalArgumentException class org.slf4j.helpers.NOPLoggerFactory" -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

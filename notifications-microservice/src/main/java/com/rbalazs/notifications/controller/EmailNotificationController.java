@@ -18,7 +18,7 @@ public class EmailNotificationController implements EmailNotificationControllerS
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailNotificationController.class);
     private static final String RATE_LIMITER_FALLBACK_MESSAGE = "Rate Limiter has been triggered for Notifications " +
-            "Microservice´s EmailNotificationController, proceed to execute rateLimiterFallback() instead " +
+            "Microservice´s EmailNotificationController, executing rateLimiterFallback() instead " +
             "sendNewOrderNotification().";
 
     private final EmailNotificationService emailNotificationService;

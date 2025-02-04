@@ -25,7 +25,7 @@ public class StockController implements StockControllerSwagger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StockController.class);
     private static final String CIRCUIT_BREAKER_FALLBACK_MESSAGE = "Circuit Breaker has been triggered for " +
-            "Stock Microservice´s StockController, proceed to execute circuitBreakerFallback() " +
+            "Stock Microservice´s StockController, executing circuitBreakerFallback() " +
             "instead getProducts().";
 
     private final StockService stockService;

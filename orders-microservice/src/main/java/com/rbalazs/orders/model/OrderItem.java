@@ -21,11 +21,11 @@ public class OrderItem {
     private String productName;
     private int requestedQuantity;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    /* This JSON annotation avoids during GET API Calls this exception =>
+    /* @JsonIgnore This JSON annotation avoids during GET API Calls this particular exception =>
     "org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Document nesting depth
     exceeds the maximum allowed" which is caused by a circular dependency between Order and OrderItem */
+    @ManyToOne
+    @JoinColumn(name = "order_id")
     @JsonIgnore
     private Order order;
 
