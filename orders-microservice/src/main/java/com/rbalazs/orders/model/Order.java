@@ -31,9 +31,6 @@ public class Order {
 
     /**
      * Creates a new Order.
-     *
-     * @param theCustomerEmail the customer email associated to the Order.
-     * @param theItems the order´s items.
      */
     public Order(final String theCustomerEmail, final List<OrderItem> theItems) {
         Validate.notEmpty(theCustomerEmail, "The customer email cannot be null nor empty");

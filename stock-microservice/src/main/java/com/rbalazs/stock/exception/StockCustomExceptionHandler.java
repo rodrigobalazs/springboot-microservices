@@ -15,9 +15,6 @@ public class StockCustomExceptionHandler {
     /**
      * Intercepts a given {@link StockCustomException} in order to return to the view an HTTP RESPONSE with the exception
      * message.
-     *
-     * @return an HTTP RESPONSE with a given HTTP Status and a JSON body with the exception message e.g =>
-     * {the entity was not found in the Stock application}
      */
     @ExceptionHandler(StockCustomException.class)
     public ResponseEntity<Object> handleStockCustomException(final StockCustomException ex) {

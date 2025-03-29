@@ -35,11 +35,6 @@ public class StockService {
     /**
      * Checks whether the product given as parameter is in stock or not
      * based on the requested quantity.
-     *
-     * @param productName the product name to check availability.
-     * @param requestedQuantity the product´s requested quantity.
-     *
-     * @return true if the product is in stock, false otherwise.
      */
     public boolean isInStock(final String productName, final int requestedQuantity) {
         Product product = getProductByName(productName);
@@ -51,9 +46,6 @@ public class StockService {
 
     /**
      * Decrease the available quantity in stock of the Product given as parameter.
-     *
-     * @param productName product name
-     * @param quantityToDecrease quantity to decrease
      */
     public void decreaseProductAvailableQuantity(final String productName, final int quantityToDecrease) {
         Product product = getProductByName(productName);

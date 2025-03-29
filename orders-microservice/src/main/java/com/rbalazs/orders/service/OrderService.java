@@ -54,9 +54,6 @@ public class OrderService {
      *
      * This service communicates against the Notifications and Stock Apps/Microservices via {@link NotificationsClient}
      * and {@link StockClient}
-     *
-     * @param quoteDTO the quote.
-     * @return the new Order identifier.
      */
     @Transactional
     public long placeOrder(final QuoteDTO quoteDTO) {

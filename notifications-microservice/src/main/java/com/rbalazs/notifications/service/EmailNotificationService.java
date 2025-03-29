@@ -36,9 +36,6 @@ public class EmailNotificationService {
 
     /**
      * Sends a New Order notification to the customer email given as parameter.
-     *
-     * @param customerEmail the customer email to send the notification message.
-     * @param orderId the new order identifier
      */
     public void sendNewOrderNotification(final String customerEmail, final Long orderId) {
 
