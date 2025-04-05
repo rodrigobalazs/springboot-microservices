@@ -6,8 +6,6 @@ import org.springframework.web.context.request.WebRequest;
 
 /**
  * Used to intercept {@link StockCustomException}
- *
- * @author Rodrigo Balazs
  */
 @ControllerAdvice
 public class StockCustomExceptionHandler {

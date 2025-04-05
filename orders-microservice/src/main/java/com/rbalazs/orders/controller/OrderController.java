@@ -18,8 +18,6 @@ import java.util.List;
 
 /**
  * Order REST Controller.
- *
- * @author Rodrigo Balazs
  */
 @RestController
 @RequestMapping("/orders")
